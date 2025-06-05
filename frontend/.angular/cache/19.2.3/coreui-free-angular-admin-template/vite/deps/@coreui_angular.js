@@ -2,6 +2,14 @@ import {
   IconDirective
 } from "./chunk-IZQGUJUQ.js";
 import {
+  ActivatedRoute,
+  NavigationEnd,
+  Router,
+  RouterLink,
+  RouterLinkActive,
+  RouterModule
+} from "./chunk-ZAVJN4YP.js";
+import {
   Platform,
   _bindEventWithOptions,
   _getEventTarget,
@@ -29,14 +37,6 @@ import {
   takeUntilDestroyed,
   toObservable
 } from "./chunk-TOV26B7B.js";
-import {
-  ActivatedRoute,
-  NavigationEnd,
-  Router,
-  RouterLink,
-  RouterLinkActive,
-  RouterModule
-} from "./chunk-ZAVJN4YP.js";
 import "./chunk-W4XWCQSP.js";
 import {
   AsyncPipe,
