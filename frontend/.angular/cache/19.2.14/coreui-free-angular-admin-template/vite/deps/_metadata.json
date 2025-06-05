@@ -1,0 +1,130 @@
+{
+  "hash": "1de97fde",
+  "configHash": "f16a45ab",
+  "lockfileHash": "e806c7b2",
+  "browserHash": "620bf16f",
+  "optimized": {
+    "@angular/common": {
+      "src": "../../../../../../node_modules/@angular/common/fesm2022/common.mjs",
+      "file": "@angular_common.js",
+      "fileHash": "a0590388",
+      "needsInterop": false
+    },
+    "@angular/core": {
+      "src": "../../../../../../node_modules/@angular/core/fesm2022/core.mjs",
+      "file": "@angular_core.js",
+      "fileHash": "7bddb2bd",
+      "needsInterop": false
+    },
+    "@angular/core/rxjs-interop": {
+      "src": "../../../../../../node_modules/@angular/core/fesm2022/rxjs-interop.mjs",
+      "file": "@angular_core_rxjs-interop.js",
+      "fileHash": "eeb7ce37",
+      "needsInterop": false
+    },
+    "@angular/forms": {
+      "src": "../../../../../../node_modules/@angular/forms/fesm2022/forms.mjs",
+      "file": "@angular_forms.js",
+      "fileHash": "6fb6055f",
+      "needsInterop": false
+    },
+    "@angular/platform-browser": {
+      "src": "../../../../../../node_modules/@angular/platform-browser/fesm2022/platform-browser.mjs",
+      "file": "@angular_platform-browser.js",
+      "fileHash": "ed322a43",
+      "needsInterop": false
+    },
+    "@angular/platform-browser/animations/async": {
+      "src": "../../../../../../node_modules/@angular/platform-browser/fesm2022/animations/async.mjs",
+      "file": "@angular_platform-browser_animations_async.js",
+      "fileHash": "68359c5e",
+      "needsInterop": false
+    },
+    "@angular/router": {
+      "src": "../../../../../../node_modules/@angular/router/fesm2022/router.mjs",
+      "file": "@angular_router.js",
+      "fileHash": "ab5d8045",
+      "needsInterop": false
+    },
+    "@coreui/angular": {
+      "src": "../../../../../../node_modules/@coreui/angular/fesm2022/coreui-angular.mjs",
+      "file": "@coreui_angular.js",
+      "fileHash": "f771f7a6",
+      "needsInterop": false
+    },
+    "@coreui/angular-chartjs": {
+      "src": "../../../../../../node_modules/@coreui/angular-chartjs/fesm2022/coreui-angular-chartjs.mjs",
+      "file": "@coreui_angular-chartjs.js",
+      "fileHash": "41fc9186",
+      "needsInterop": false
+    },
+    "@coreui/icons": {
+      "src": "../../../../../../node_modules/@coreui/icons/dist/esm/index.js",
+      "file": "@coreui_icons.js",
+      "fileHash": "3fb777f4",
+      "needsInterop": false
+    },
+    "@coreui/icons-angular": {
+      "src": "../../../../../../node_modules/@coreui/icons-angular/fesm2022/coreui-icons-angular.mjs",
+      "file": "@coreui_icons-angular.js",
+      "fileHash": "519b8bcf",
+      "needsInterop": false
+    },
+    "@coreui/utils": {
+      "src": "../../../../../../node_modules/@coreui/utils/dist/esm/index.js",
+      "file": "@coreui_utils.js",
+      "fileHash": "8d8c7517",
+      "needsInterop": false
+    },
+    "ngx-scrollbar": {
+      "src": "../../../../../../node_modules/ngx-scrollbar/fesm2022/ngx-scrollbar.mjs",
+      "file": "ngx-scrollbar.js",
+      "fileHash": "508dc243",
+      "needsInterop": false
+    },
+    "rxjs/operators": {
+      "src": "../../../../../../node_modules/rxjs/dist/esm5/operators/index.js",
+      "file": "rxjs_operators.js",
+      "fileHash": "571c261a",
+      "needsInterop": false
+    }
+  },
+  "chunks": {
+    "chunk-UZEZ25OE": {
+      "file": "chunk-UZEZ25OE.js"
+    },
+    "browser-5CWLV6YF": {
+      "file": "browser-5CWLV6YF.js"
+    },
+    "chunk-WCRERABP": {
+      "file": "chunk-WCRERABP.js"
+    },
+    "chunk-RDA74ESE": {
+      "file": "chunk-RDA74ESE.js"
+    },
+    "chunk-NMHQUYPO": {
+      "file": "chunk-NMHQUYPO.js"
+    },
+    "chunk-YTBIWR5U": {
+      "file": "chunk-YTBIWR5U.js"
+    },
+    "chunk-SP5CGJ3T": {
+      "file": "chunk-SP5CGJ3T.js"
+    },
+    "chunk-ITYJWQQH": {
+      "file": "chunk-ITYJWQQH.js"
+    },
+    "chunk-MVD4DKJB": {
+      "file": "chunk-MVD4DKJB.js"
+    },
+    "chunk-WTPM7ZYD": {
+      "file": "chunk-WTPM7ZYD.js"
+    },
+    "chunk-MXDOIL62": {
+      "file": "chunk-MXDOIL62.js"
+    },
+    "chunk-XWLXMCJQ": {
+      "file": "chunk-XWLXMCJQ.js"
+    }
+  }
+}

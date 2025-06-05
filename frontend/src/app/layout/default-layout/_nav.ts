@@ -20,7 +20,7 @@ export const navItems: INavData[] = [
     iconComponent: { name: 'cil-zoom' }
   },
   {
-    name: 'Typography',
+    name: 'Login',
     url: '/theme/typography',
     linkProps: { fragment: 'headings' },
     iconComponent: { name: 'cil-pencil' }
