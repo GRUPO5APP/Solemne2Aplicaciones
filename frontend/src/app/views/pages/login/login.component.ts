@@ -37,7 +37,6 @@ import {
     FormControlDirective,
     ButtonDirective,
     NgStyle,
-    RouterLink
   ]
 })
 export class LoginComponent {
