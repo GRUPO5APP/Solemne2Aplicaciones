@@ -1,5 +1,5 @@
 <div class="task-form-container mb-12" >
-  <h2>{{ isEditing ? 'Editar tarea' : 'Agregar tarea' }}</h2>
+  <h2>{{ editMode  ? 'Editar tarea' : 'Agregar tarea' }}</h2>
 
   <form (ngSubmit)="onSubmit()" class="task-form mb-12" cform>
     <label for="title">Título:</label>
@@ -15,9 +15,9 @@
       <option value="Baja">Baja</option>
     </select>
 
-    <label for="dueDate">Fecha de vencimiento:</label>
-    <input id="dueDate" type="date" [(ngModel)]="task.dueDate" name="dueDate" required />
+    <label for="dueDate">Fecha y hora de vencimiento:</label>
+    <input id="dueDate" type="datetime-local" class="form-control" [(ngModel)]="task.dueDate" name="dueDate" required />
 
-    <button type="submit">{{ isEditing ? 'Actualizar tarea' : 'Guardar tarea' }}</button>
+    <button type="submit">{{ editMode  ? 'Actualizar tarea' : 'Guardar tarea' }}</button>
   </form>
 </div>

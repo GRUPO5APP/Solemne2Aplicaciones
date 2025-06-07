@@ -27,7 +27,7 @@ import { IconDirective } from '@coreui/icons-angular';
 @Component({
     selector: 'app-default-header',
     templateUrl: './default-header.component.html',
-  imports: [ContainerComponent, HeaderTogglerDirective, SidebarToggleDirective, IconDirective, HeaderNavComponent, NavItemComponent, NavLinkDirective, RouterLink, RouterLinkActive, NgTemplateOutlet, BreadcrumbRouterComponent]
+  imports: [ContainerComponent, HeaderTogglerDirective, SidebarToggleDirective, IconDirective, HeaderNavComponent, NavItemComponent, NavLinkDirective, RouterLink, RouterLinkActive, BreadcrumbRouterComponent]
 })
 export class DefaultHeaderComponent extends HeaderComponent {
 

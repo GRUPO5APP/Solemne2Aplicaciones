@@ -4,11 +4,12 @@ import { TaskService } from '../../services/task.service';
 import { Task } from '../../models/task.model';
 import { Output, EventEmitter } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { TaskFormComponent } from '../../views/task-form/task-form.component';
 
 @Component({
   selector: 'app-task-list',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, TaskFormComponent],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
@@ -20,11 +21,9 @@ export class TaskListComponent{
   filterPriority: string = '';
   searchTerm: string = '';
 
-  constructor(public taskService: TaskService) {}
+  editingTask: Task | null = null;
 
-  onEdit(task: Task) {
-    this.edit.emit(task);
-  }
+  constructor(public taskService: TaskService) {}
 
   get filteredTasks(): Task[] {
     return this.taskService.getTasks().filter(task =>
@@ -82,5 +81,20 @@ clearFilters() {
     this.filterStatus = '';
     this.filterPriority = '';
   }
+
+  openEditModal(task: Task) {
+  this.editingTask = { ...task }; // copia para edición segura
+}
+
+onTaskSaved(updatedTask: Task) {
+  this.taskService.updateTask(updatedTask);
+  alert('Tarea actualizada exitosamente.');
+  this.editingTask = null;
+}
+
+
+cancelEdit() {
+  this.editingTask = null;
+}
 
 }
