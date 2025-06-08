@@ -12,18 +12,17 @@ export const navItems: INavData[] = [
   },
   {
     title: true,
-    name: 'Theme'
+    name: 'Administración de tareas'
   },
   {
     name: 'Crear tarea',
     url: '/task-form/create-task',
-    iconComponent: { name: 'cil-zoom' }
+    iconComponent: { name: 'cil-apple' }
   },
   {
-    name: 'Login',
-    url: '/theme/typography',
-    linkProps: { fragment: 'headings' },
-    iconComponent: { name: 'cil-pencil' }
+    name: 'Reporte de Tareas',
+    url: '/report',
+    iconComponent: { name: 'cil-apple' }
   },
   {
     name: 'Components',

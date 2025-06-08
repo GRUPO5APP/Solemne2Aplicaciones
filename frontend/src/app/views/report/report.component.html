@@ -1,0 +1,19 @@
+<div class="container text-center mt-4" id="reportSection">
+  <h2>Reporte de Tareas</h2>
+
+   <div class="summary mt-3">
+    <p><strong>Total de tareas:</strong> {{ completadas + pendientes + vencidas }}</p>
+    <p>✔️ Completadas: {{ completadas }}</p>
+    <p>⏳ Pendientes: {{ pendientes }}</p>
+    <p>❌ Vencidas: {{ vencidas }}</p>
+  </div>
+
+  <div class="chart-wrapper mx-auto mb-3">
+    <canvas id="taskChart"></canvas>
+  </div>
+
+</div>
+
+<div class="text-center mt-3">
+  <button class="btn btn-primary" (click)="exportAsPDF()">Exportar como PDF</button>
+</div>

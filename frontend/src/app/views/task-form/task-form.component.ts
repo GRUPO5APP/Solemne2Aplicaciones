@@ -55,7 +55,7 @@ ngOnChanges() {
         id: this.editingTaskId,
         dueDate: new Date(this.task.dueDate!),
         createdAt: this.task.createdAt || new Date(),
-        status: this.task.status as 'Completada' | 'Pendiente' | 'Vencida' | 'En progreso',
+        status: this.task.status as 'Completada' | 'Vencida' | 'En progreso',
         priority: this.task.priority as 'Alta' | 'Media' | 'Baja'
       };
       this.formSubmit.emit(updatedTask);
@@ -65,7 +65,7 @@ ngOnChanges() {
         id: Date.now(),
         createdAt: new Date(),
         dueDate: new Date(this.task.dueDate!),
-        status: this.task.status as 'Completada' | 'Pendiente' | 'Vencida' | 'En progreso',
+        status: this.task.status as 'Completada' | 'Vencida' | 'En progreso',
         priority: this.task.priority as 'Alta' | 'Media' | 'Baja'        
       };
       this.taskService.addTask(newTask);

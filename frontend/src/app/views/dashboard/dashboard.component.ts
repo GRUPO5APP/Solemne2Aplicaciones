@@ -25,6 +25,8 @@ export class TaskListComponent{
 
   constructor(public taskService: TaskService) {}
 
+  
+
   get filteredTasks(): Task[] {
     return this.taskService.getTasks().filter(task =>
     (!this.filterStatus || task.status === this.filterStatus) &&
@@ -40,14 +42,14 @@ export class TaskListComponent{
   }
 
   markAsCompleted(task: Task) {
-  const updatedTask = { ...task, status: 'Completada' as 'Completada' | 'Pendiente' | 'Vencida' | 'En progreso' };
+  const updatedTask = { ...task, status: 'Completada' as 'Completada' | 'Pendiente' | 'Vencida' };
   this.taskService.updateTask(updatedTask);
   }
 
   markAsPending(task: Task) {
   const updatedTask: Task = {
     ...task,
-    status: 'Pendiente' as 'Completada' | 'Pendiente' | 'Vencida' | 'En progreso'
+    status: 'Pendiente' as 'Completada' | 'Pendiente' | 'Vencida'
   };
   this.taskService.updateTask(updatedTask);
   }
@@ -83,7 +85,7 @@ clearFilters() {
   }
 
   openEditModal(task: Task) {
-  this.editingTask = { ...task }; // copia para edición segura
+  this.editingTask = { ...task }; 
 }
 
 onTaskSaved(updatedTask: Task) {

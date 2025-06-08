@@ -12,7 +12,6 @@
           <select class="form-select" [(ngModel)]="filterStatus" name="status">
             <option value="">Todos</option>
             <option value="Pendiente">Pendiente</option>
-            <option value="En progreso">En progreso</option>
             <option value="Completada">Completada</option>
             <option value="Vencida">Vencida</option>
           </select>
@@ -54,7 +53,6 @@
               <p><strong>Estado: </strong>
                 <span [ngClass]="{
                   'text-success': task.status === 'Completada',
-                  'text-primary': task.status === 'En progreso',
                   'text-muted': task.status === 'Pendiente'
                 }">{{ task.status }}</span>
               </p>
@@ -83,9 +81,6 @@
     </div>
   </div>
 
-  <!-- Modal para edición -->
-  <!-- Modal personalizado centrado -->
-<!-- MODAL centrado absoluto y aislado -->
 <div class="overlay-modal" *ngIf="editingTask">
   <div class="modal-centrado">
     <h5 class="mb-3">Editar tarea</h5>
