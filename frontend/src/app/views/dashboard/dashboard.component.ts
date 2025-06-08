@@ -25,6 +25,34 @@ export class TaskListComponent{
 
   constructor(public taskService: TaskService) {}
 
+  ngOnInit(): void {
+    this.tasks = this.taskService.getTasks();
+    this.checkForExpiringTasks();
+  }
+
+  checkForExpiringTasks(): void {
+    const now = new Date();
+
+    const alertedTasks = JSON.parse(localStorage.getItem('alertedTasks') || '[]');
+
+    this.tasks.forEach(task => {
+      const dueDate = new Date(task.dueDate);
+      const hoursLeft = (dueDate.getTime() - now.getTime()) / (1000 * 60 * 60);
+
+      if (
+        hoursLeft > 0 &&
+        hoursLeft <= 24 &&
+        task.status !== 'Completada' &&
+        !alertedTasks.includes(task.id)
+      ) {
+        alert(`⚠️ La tarea "${task.title}" vence en menos de 24 horas.`);
+
+        alertedTasks.push(task.id);
+    }
+  });
+
+  localStorage.setItem('alertedTasks', JSON.stringify(alertedTasks));
+}
   
 
   get filteredTasks(): Task[] {
@@ -90,7 +118,7 @@ clearFilters() {
 
 onTaskSaved(updatedTask: Task) {
   this.taskService.updateTask(updatedTask);
-  alert('Tarea actualizada exitosamente.');
+  alert('✅ Tarea actualizada exitosamente.');
   this.editingTask = null;
 }
 

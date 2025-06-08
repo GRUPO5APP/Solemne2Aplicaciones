@@ -58,6 +58,9 @@ ngOnChanges() {
         status: this.task.status as 'Completada' | 'Vencida' | 'En progreso',
         priority: this.task.priority as 'Alta' | 'Media' | 'Baja'
       };
+      if (this.isDueSoon(this.task.dueDate!)) {
+        alert(`⚠️ La tarea "${this.task.title}" vence en menos de 24 horas.`);
+      }
       this.formSubmit.emit(updatedTask);
     } else {
       const newTask: Task = {
@@ -68,8 +71,14 @@ ngOnChanges() {
         status: this.task.status as 'Completada' | 'Vencida' | 'En progreso',
         priority: this.task.priority as 'Alta' | 'Media' | 'Baja'        
       };
+
       this.taskService.addTask(newTask);
-      alert('Tarea agregada exitosamente.');
+      alert('✅ Tarea agregada exitosamente.');
+
+      if (this.isDueSoon(this.task.dueDate!)) {
+        alert(`⚠️ La tarea "${this.task.title}" vence en menos de 24 horas.`);
+      }
+      
       this.formSubmit.emit();
     }
 
@@ -83,4 +92,12 @@ ngOnChanges() {
     this.editMode = false;
     this.editingTaskId = null;
   }
+
+  isDueSoon(date: Date): boolean {
+  const now = new Date();
+  const due = new Date(date);
+  const hoursLeft = (due.getTime() - now.getTime()) / (1000 * 60 * 60);
+  return hoursLeft > 0 && hoursLeft <= 24;
+}
+
 }
