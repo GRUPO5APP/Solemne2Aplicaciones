@@ -47,8 +47,19 @@ ngOnChanges() {
   }
 }
 
+isFutureDate(date: string | Date): boolean {
+  const now = new Date();
+  const due = new Date(date);
+  return due > now;
+}
 
-  onSubmit() {
+
+  onSubmit(form: any) {
+    if (!this.isFutureDate(this.task.dueDate!)) {
+      alert('⚠️ La fecha de vencimiento debe ser posterior al momento actual.');
+      return;
+    }
+
     if (this.editMode && this.editingTaskId !== null) {
       const updatedTask: Task = {
         ...(this.task as Task),
@@ -82,13 +93,13 @@ ngOnChanges() {
       this.formSubmit.emit();
     }
 
-    this.task = {
+    form.resetForm({
       title: '',
       description: '',
       status: 'Pendiente',
       priority: 'Media',
       dueDate: new Date()
-    };
+    });
     this.editMode = false;
     this.editingTaskId = null;
   }
