@@ -42,7 +42,7 @@ La empresa TechNova Solutions, dedicada al desarrollo de soluciones web modernas
 
 1. Instalar Docker desktop
 2. Instalar Node.js
-3. Abrir consola o IDE de eleccion}
-4. Crear un archivo .Dockerfile y colocar codigo de dockerfile adjunto en GitHub
+3. Abrir consola o IDE de eleccion
+4. Descargar el archivo Dockerfile en el branch "master"
 5. Crear imagen de docker usando "docker build --no-cache -t ***nombre*** ." // Asegurate de estar en la carpeta del dockerfile
 6. Ejecutar el dockerfile usando "docker run -p 4200:4200 ***nombre***" // el proyecto se abrira en el puerto 9000 de tu equipo
