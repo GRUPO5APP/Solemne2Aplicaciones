@@ -1,23 +1,38 @@
 <div class="task-form-container mb-12" >
-  <h2>{{ isEditing ? 'Editar tarea' : 'Agregar tarea' }}</h2>
+  <h2>{{ editMode  ? 'Editar tarea' : 'Agregar tarea' }}</h2>
 
-  <form (ngSubmit)="onSubmit()" class="task-form mb-12" cform>
+  <form #taskForm="ngForm" (ngSubmit)="onSubmit(taskForm)" class="task-form mb-12" cform>
     <label for="title">Título:</label>
-    <input id="title" type="text" [(ngModel)]="task.title" name="title" required />
+    <input id="title" type="text" [(ngModel)]="task.title" name="title" required minlength="3" #title="ngModel"/>
+    <div *ngIf="title.invalid && title.touched" class="text-danger">
+      <small *ngIf="title.errors?.['required']">⚠️ El título es obligatorio.</small>
+      <small *ngIf="title.errors?.['minlength']">⚠️ El título debe tener un mínimo 3 caracteres.</small>
+    </div>
 
     <label for="description">Descripción:</label>
-    <textarea id="description" [(ngModel)]="task.description" name="description" required></textarea>
+    <textarea id="description" [(ngModel)]="task.description" name="description" required minlength="5" #description="ngModel"></textarea>
+    <div *ngIf="description.invalid && description.touched" class="text-danger">
+      <small *ngIf="description.errors?.['required']">⚠️ La descripción es obligatoria.</small>
+      <small *ngIf="description.errors?.['minlength']">⚠️ Mínimo 5 caracteres.</small>
+    </div>
 
     <label for="priority">Prioridad:</label>
-    <select id="priority" [(ngModel)]="task.priority" name="priority" required>
+    <select id="priority" [(ngModel)]="task.priority" name="priority" required  #priority="ngModel">
       <option value="Alta">Alta</option>
       <option value="Media">Media</option>
       <option value="Baja">Baja</option>
     </select>
+    <div *ngIf="priority.invalid && priority.touched" class="text-danger">
+      <small>⚠️ Debes seleccionar una prioridad.</small>
+    </div>
 
-    <label for="dueDate">Fecha de vencimiento:</label>
-    <input id="dueDate" type="date" [(ngModel)]="task.dueDate" name="dueDate" required />
+    <label for="dueDate">Fecha y hora de vencimiento:</label>
+    <input id="dueDate" type="datetime-local" class="form-control" [(ngModel)]="task.dueDate" name="dueDate" required #dueDate="ngModel"/>
+    <div *ngIf="(dueDate.invalid || (task.dueDate && !isFutureDate(task.dueDate))) && dueDate.touched" class="text-danger">
+      <small *ngIf="dueDate.errors?.['required']">⚠️ La fecha de vencimiento es obligatoria.</small>
+      <small *ngIf="task.dueDate && !isFutureDate(task.dueDate) && dueDate.touched">⚠️ La fecha de vencimiento debe ser posterior a la fecha actual.</small>
+    </div>
 
-    <button type="submit">{{ isEditing ? 'Actualizar tarea' : 'Guardar tarea' }}</button>
+    <button type="submit" [disabled]="taskForm.invalid">{{ editMode  ? 'Actualizar tarea' : 'Guardar tarea' }}</button>
   </form>
 </div>

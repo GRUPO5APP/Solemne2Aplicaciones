@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { TextColorDirective, CardComponent, CardHeaderComponent, CardBodyComponent } from '@coreui/angular';
+import { RouterLink } from '@angular/router';
 
 @Component({
     templateUrl: 'typography.component.html',
@@ -8,6 +9,7 @@ import { TextColorDirective, CardComponent, CardHeaderComponent, CardBodyCompone
         CardComponent,
         CardHeaderComponent,
         CardBodyComponent,
+        RouterLink
     ]
 })
 export class TypographyComponent {

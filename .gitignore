@@ -49,6 +49,9 @@ chrome-profiler-events*.json
 # Miscellaneous
 .npmrc
 /.angular/cache
+/.angular/cache/*
+*/.angular/*
+.angular/
 .sass-cache/
 /connect.lock
 /coverage

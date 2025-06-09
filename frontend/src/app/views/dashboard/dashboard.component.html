@@ -1,4 +1,98 @@
-<app-widgets-dropdown />
+<div class="container-fluid">
+  <div class="card mb-4">
+    <div class="card-header"><strong>Filtro de Tareas</strong></div>
+    <div class="card-body">
+      <form class="row g-3">
+        <div class="col-md-4">
+          <label class="form-label">Buscar</label>
+          <input type="text" class="form-control" [(ngModel)]="searchTerm" name="search" placeholder="Título o descripción" />
+        </div>
+        <div class="col-md-3">
+          <label class="form-label">Estado</label>
+          <select class="form-select" [(ngModel)]="filterStatus" name="status">
+            <option value="">Todos</option>
+            <option value="Pendiente">Pendiente</option>
+            <option value="Completada">Completada</option>
+            <option value="Vencida">Vencida</option>
+          </select>
+        </div>
+        <div class="col-md-3">
+          <label class="form-label">Prioridad</label>
+          <select class="form-select" [(ngModel)]="filterPriority" name="priority">
+            <option value="">Todas</option>
+            <option value="Alta">Alta</option>
+            <option value="Media">Media</option>
+            <option value="Baja">Baja</option>
+          </select>
+        </div>
+        <div class="col-md-2 d-flex align-items-end">
+          <button class="btn btn-secondary w-100" type="button" (click)="clearFilters()">Limpiar filtros</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><strong>Lista de Tareas</strong></div>
+    <div class="card-body">
+      <div class="row g-4">
+        <div *ngFor="let task of filteredTasks" class="col-md-6 col-xl-4">
+          <div class="card h-100 shadow-sm">
+            <div class="card-body">
+              <h5 class="card-title">{{ task.title }}</h5>
+              <p class="card-text">{{ task.description }}</p>
+
+              <p><strong>Prioridad: </strong>
+                <span [ngClass]="{
+                  'text-danger': task.priority === 'Alta',
+                  'text-warning': task.priority === 'Media',
+                  'text-success': task.priority === 'Baja'
+                }">{{ task.priority }}</span>
+              </p>
+
+              <p><strong>Estado: </strong>
+                <span [ngClass]="{
+                  'text-success': task.status === 'Completada',
+                  'text-muted': task.status === 'Pendiente'
+                }">{{ task.status }}</span>
+              </p>
+
+              <p><strong>Creada:</strong> {{ task.createdAt | date: 'dd-MM-yyyy HH:mm' }}</p>
+              <p><strong>Vence:</strong> {{ task.dueDate | date: 'dd-MM-yyyy HH:mm' }}</p>
+              <p><strong>Tiempo restante:</strong> {{ getTimeRemaining(task.dueDate) }}</p>
+            </div>
+            <div class="card-footer d-flex flex-wrap gap-2">
+              <button class="btn btn-outline-primary btn-sm" (click)="openEditModal(task)">Editar</button>
+              <button class="btn btn-outline-danger btn-sm" (click)="onDelete(task.id)">Eliminar</button>
+              <button
+                *ngIf="task.status !== 'Completada'"
+                class="btn btn-outline-success btn-sm"
+                (click)="markAsCompleted(task)"
+              >Marcar como Completada</button>
+              <button
+                *ngIf="task.status !== 'Pendiente'"
+                class="btn btn-outline-secondary btn-sm"
+                (click)="markAsPending(task)"
+              >Marcar como Pendiente</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<div class="overlay-modal" *ngIf="editingTask">
+  <div class="modal-centrado">
+    <h5 class="mb-3">Editar tarea</h5>
+    <app-task-form
+      [taskToEdit]="editingTask"
+      (formSubmit)="onTaskSaved($event)">
+    </app-task-form>
+    <div class="d-flex justify-content-end mt-3">
+      <button class="btn btn-secondary me-2" (click)="cancelEdit()">Cancelar</button>
+    </div>
+  </div>
+</div>
 
 
-
+</div>

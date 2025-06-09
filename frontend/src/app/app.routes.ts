@@ -1,10 +1,12 @@
 import { Routes } from '@angular/router';
 import { DefaultLayoutComponent } from './layout';
+import { ReportComponent } from './views/report/report.component';
+
 
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'dashboard',
+    redirectTo: 'login',
     pathMatch: 'full'
   },
   {
@@ -57,6 +59,10 @@ export const routes: Routes = [
       {
         path: 'task-form',
         loadChildren: () => import('./views/task-form/routes').then((m) => m.routes)
+      },
+      {
+        path: 'report',
+        loadChildren: () => import('./views/report/routes').then((m) => m.routes)
       }
     ]
   },
@@ -88,5 +94,10 @@ export const routes: Routes = [
       title: 'Register Page'
     }
   },
-  { path: '**', redirectTo: 'dashboard' }
+
+  { path: 'reporte', component: ReportComponent },
+
+  { path: '**', redirectTo: 'dashboard' },
+
 ];
+//

@@ -13,7 +13,7 @@ export class TaskService {
       status: 'Pendiente',
       priority: 'Alta',
       createdAt: new Date(),
-      dueDate: new Date(new Date().getTime() + 86400000) // +1 día
+      dueDate: new Date(new Date().getTime() + 86400000) 
     }
   ];
 
@@ -31,7 +31,7 @@ export class TaskService {
   }
 
   addTask(task: Task): void {
-    task.id = Date.now(); // ID simple
+    task.id = Date.now(); 
     this.tasks.push(task);
   }
 
