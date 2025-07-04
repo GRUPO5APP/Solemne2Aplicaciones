@@ -53,7 +53,8 @@
               <p><strong>Estado: </strong>
                 <span [ngClass]="{
                   'text-success': task.status === 'Completada',
-                  'text-muted': task.status === 'Pendiente'
+                  'text-muted': task.status === 'Pendiente',
+                  'text-danger': task.status === 'Vencida'
                 }">{{ task.status }}</span>
               </p>
 
@@ -81,18 +82,16 @@
     </div>
   </div>
 
-<div class="overlay-modal" *ngIf="editingTask">
-  <div class="modal-centrado">
-    <h5 class="mb-3">Editar tarea</h5>
-    <app-task-form
-      [taskToEdit]="editingTask"
-      (formSubmit)="onTaskSaved($event)">
-    </app-task-form>
-    <div class="d-flex justify-content-end mt-3">
-      <button class="btn btn-secondary me-2" (click)="cancelEdit()">Cancelar</button>
+  <div class="overlay-modal" *ngIf="editingTask">
+    <div class="modal-centrado">
+      <h5 class="mb-3">Editar tarea</h5>
+      <app-task-form
+        [taskToEdit]="editingTask"
+        (formSubmit)="onTaskSaved($event)">
+      </app-task-form>
+      <div class="d-flex justify-content-end mt-3">
+        <button class="btn btn-secondary me-2" (click)="cancelEdit()">Cancelar</button>
+      </div>
     </div>
   </div>
-</div>
-
-
 </div>

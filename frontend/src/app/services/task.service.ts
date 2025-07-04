@@ -1,49 +1,30 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { Task } from '../models/task.model';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TaskService {
-  public tasks: Task[] = [
-    {
-      id: 1,
-      title: 'Tarea ejemplo',
-      description: 'Esta es una tarea de ejemplo.',
-      status: 'Pendiente',
-      priority: 'Alta',
-      createdAt: new Date(),
-      dueDate: new Date(new Date().getTime() + 86400000) 
-    }
-  ];
+  private apiUrl = 'http://localhost:8000/api/tasks/';
 
-  getTasks(): Task[] {
-    const now = new Date();
+  constructor(private http: HttpClient) { }
 
-  this.tasks = this.tasks.map(task => {
-    if (new Date(task.dueDate) < now && task.status !== 'Completada' && task.status !== 'Vencida') {
-      return { ...task, status: 'Vencida' };
-    }
-    return task;
-  });
-
-  return this.tasks;
+  getTasks(): Observable<Task[]> {
+    return this.http.get<Task[]>(this.apiUrl);
   }
 
-  addTask(task: Task): void {
-    task.id = Date.now(); 
-    this.tasks.push(task);
+  addTask(task: Task): Observable<Task> {
+    return this.http.post<Task>('http://localhost:8000/api/tasks/', task);
   }
 
-  updateTask(updated: Task): void {
-    const index = this.tasks.findIndex(t => t.id === updated.id);
-    if (index > -1) this.tasks[index] = updated;
+
+  updateTask(task: Task): Observable<Task> {
+    return this.http.put<Task>(`${this.apiUrl}${task.id}/`, task);
   }
 
-  deleteTask(id: number): void {
-    this.tasks = this.tasks.filter(t => t.id !== id);
+  deleteTask(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}${id}/`);
   }
-
 }
-export { Task };
-
