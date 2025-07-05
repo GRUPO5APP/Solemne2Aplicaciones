@@ -15,16 +15,21 @@ export class TaskService {
     return this.http.get<Task[]>(this.apiUrl);
   }
 
-  addTask(task: Task): Observable<Task> {
-    return this.http.post<Task>('http://localhost:8000/api/tasks/', task);
+  addTask(taskData: Partial<Omit<Task, 'id' | 'createdAt'>>): Observable<Task> {
+    return this.http.post<Task>(this.apiUrl, taskData);
   }
 
-
-  updateTask(task: Task): Observable<Task> {
-    return this.http.put<Task>(`${this.apiUrl}${task.id}/`, task);
+  updateTask(id: number, taskData: Partial<Omit<Task, 'id' | 'createdAt'>>): Observable<Task> {
+    return this.http.put<Task>(`${this.apiUrl}${id}/`, taskData);
   }
+
 
   deleteTask(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}${id}/`);
   }
+
+  patchTask(id: number, partial: Partial<Omit<Task, 'id' | 'createdAt'>>): Observable<Task> {
+  return this.http.patch<Task>(`${this.apiUrl}${id}/`, partial);
+}
+
 }

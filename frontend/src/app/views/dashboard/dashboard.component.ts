@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TaskService } from '../../services/task.service';
 import { Task } from '../../models/task.model';
@@ -21,7 +21,7 @@ export class TaskListComponent implements OnInit {
 
   editingTask: Task | null = null;
 
-  constructor(private taskService: TaskService) {}
+  constructor(private taskService: TaskService) { }
 
   ngOnInit(): void {
     this.loadTasks();
@@ -31,6 +31,21 @@ export class TaskListComponent implements OnInit {
     this.taskService.getTasks().subscribe(tasks => {
       this.tasks = tasks;
       this.checkForExpiringTasks();
+      this.updateOverdueTasks(); 
+    });
+  }
+
+  updateOverdueTasks(): void {
+    const now = new Date();
+
+    this.tasks.forEach(task => {
+      const due = new Date(task.dueDate);
+
+      if (due < now && task.status !== 'Completada' && task.status !== 'Vencida') {
+        this.taskService.patchTask(task.id, { status: 'Vencida' }).subscribe(() => {
+          task.status = 'Vencida';
+        });
+      }
     });
   }
 
@@ -67,21 +82,34 @@ export class TaskListComponent implements OnInit {
   }
 
   onDelete(taskId: number) {
+  const confirmed = confirm('¿Estás seguro de que deseas eliminar esta tarea?');
+  if (confirmed) {
     this.taskService.deleteTask(taskId).subscribe(() => {
+      alert('✅ Tarea eliminada exitosamente.');
+      this.loadTasks();
+    });
+  }
+}
+
+
+  markAsCompleted(task: Task, event: Event) {
+    event.preventDefault();
+    event.stopPropagation();
+    (event.target as HTMLElement).blur();
+
+    const updatedTask = { status: 'Completada' as 'Completada' };
+    this.taskService.patchTask(task.id, updatedTask).subscribe(() => {
       this.loadTasks();
     });
   }
 
-  markAsCompleted(task: Task) {
-    const updatedTask: Task = { ...task, status: 'Completada' };
-    this.taskService.updateTask(updatedTask).subscribe(() => {
-      this.loadTasks();
-    });
-  }
+  markAsPending(task: Task, event: Event) {
+    event.preventDefault();
+    event.stopPropagation();
+    (event.target as HTMLElement).blur();
 
-  markAsPending(task: Task) {
-    const updatedTask: Task = { ...task, status: 'Pendiente' };
-    this.taskService.updateTask(updatedTask).subscribe(() => {
+    const updatedTask = { status: 'Pendiente' as 'Pendiente' };
+    this.taskService.patchTask(task.id, updatedTask).subscribe(() => {
       this.loadTasks();
     });
   }
@@ -100,12 +128,8 @@ export class TaskListComponent implements OnInit {
     const diffMinutes = Math.floor((diffMs % (1000 * 60 * 60)) / (1000 * 60));
 
     let result = '';
-    if (diffDays > 0) {
-      result += `${diffDays}d `;
-    }
-    if (diffHours > 0) {
-      result += `${diffHours}h `;
-    }
+    if (diffDays > 0) result += `${diffDays}d `;
+    if (diffHours > 0) result += `${diffHours}h `;
     result += `${diffMinutes}m`;
 
     return result;
@@ -121,18 +145,8 @@ export class TaskListComponent implements OnInit {
     this.editingTask = { ...task };
   }
 
-  onTaskSaved(updatedTask: Task) {
-    if (updatedTask.id) {
-      this.taskService.updateTask(updatedTask).subscribe(() => {
-        this.loadTasks();
-        alert('✅ Tarea actualizada exitosamente.');
-      });
-    } else {
-      this.taskService.addTask(updatedTask).subscribe(() => {
-        this.loadTasks();
-        alert('✅ Tarea creada exitosamente.');
-      });
-    }
+  onTaskSaved(_: Task | Partial<Task>) {
+    this.loadTasks();
     this.editingTask = null;
   }
 

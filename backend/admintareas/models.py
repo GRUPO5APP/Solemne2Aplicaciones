@@ -21,21 +21,21 @@ class Task(models.Model):
     description = models.TextField()
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='Pendiente')
     priority = models.CharField(max_length=20, choices=PRIORITY_CHOICES, default='Media')
-    created_at = models.DateTimeField(auto_now_add=True)
-    due_date = models.DateTimeField()
+    createdAt = models.DateTimeField(auto_now_add=True)
+    dueDate = models.DateTimeField()
 
     def is_due_soon(self):
         if self.status in ['Completada', 'Vencida']:
             return False
-        return timezone.now() + timedelta(hours=24) >= self.due_date
+        return timezone.now() + timedelta(hours=24) >= self.dueDate
 
     def mark_as_vencida_if_needed(self):
-        if timezone.now() > self.due_date and self.status not in ['Completada', 'Vencida']:
+        if timezone.now() > self.dueDate and self.status not in ['Completada', 'Vencida']:
             self.status = 'Vencida'
             self.save()
 
     def clean(self):
-        if self.due_date < timezone.now():
+        if self.dueDate < timezone.now():
             from django.core.exceptions import ValidationError
             raise ValidationError('La fecha de vencimiento no puede estar en el pasado.')
 

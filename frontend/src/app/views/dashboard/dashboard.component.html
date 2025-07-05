@@ -63,17 +63,19 @@
               <p><strong>Tiempo restante:</strong> {{ getTimeRemaining(task.dueDate) }}</p>
             </div>
             <div class="card-footer d-flex flex-wrap gap-2">
-              <button class="btn btn-outline-primary btn-sm" (click)="openEditModal(task)">Editar</button>
-              <button class="btn btn-outline-danger btn-sm" (click)="onDelete(task.id)">Eliminar</button>
+              <button type="button" class="btn btn-outline-primary btn-sm" (click)="openEditModal(task)">Editar</button>
+              <button type="button" class="btn btn-outline-danger btn-sm" (click)="onDelete(task.id)">Eliminar</button>
               <button
+                type="button"
                 *ngIf="task.status !== 'Completada'"
                 class="btn btn-outline-success btn-sm"
-                (click)="markAsCompleted(task)"
+                (click)="markAsCompleted(task, $event)"
               >Marcar como Completada</button>
               <button
+                type="button"
                 *ngIf="task.status !== 'Pendiente'"
                 class="btn btn-outline-secondary btn-sm"
-                (click)="markAsPending(task)"
+                (click)="markAsPending(task, $event)"
               >Marcar como Pendiente</button>
             </div>
           </div>
