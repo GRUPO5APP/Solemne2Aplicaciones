@@ -3,6 +3,7 @@ import Chart from 'chart.js/auto';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import { TaskService } from '../../services/task.service';
+import { Task } from '../../models/task.model';
 
 @Component({
   selector: 'app-report',
@@ -28,30 +29,42 @@ export class ReportComponent implements OnInit {
   }
 
   generateChart(): void {
-    const tasks = this.taskService.getTasks();
+    this.taskService.getTasks().subscribe({
+      next: (tasks: Task[]) => {
+        this.completadas = tasks.filter(t => t.status === 'Completada').length;
+        this.pendientes = tasks.filter(t => t.status === 'Pendiente').length;
+        this.vencidas = tasks.filter(t => t.status === 'Vencida').length;
 
+        this.totalTareas = tasks.length;
 
-    this.completadas = tasks.filter(t => t.status === 'Completada').length;
-    this.pendientes = tasks.filter(t => t.status === 'Pendiente').length;
-    this.vencidas = tasks.filter(t => t.status === 'Vencida').length
+        const calcPorcentaje = (valor: number): number =>
+          this.totalTareas ? Math.round((valor / this.totalTareas) * 100) : 0;
 
-    this.totalTareas = tasks.length;
+        this.porcentajeCompletadas = calcPorcentaje(this.completadas);
+        this.porcentajePendientes = calcPorcentaje(this.pendientes);
+        this.porcentajeVencidas = calcPorcentaje(this.vencidas);
 
-    const calcPorcentaje = (valor: number): number =>
-      this.totalTareas ? Math.round((valor / this.totalTareas) * 100) : 0;
+        this.renderChart();
+      },
+      error: (err) => {
+        console.error('Error al obtener tareas:', err);
+      }
+    });
+  }
 
-    this.porcentajeCompletadas = calcPorcentaje(this.completadas);
-    this.porcentajePendientes = calcPorcentaje(this.pendientes);    
-    this.porcentajeVencidas = calcPorcentaje(this.vencidas);
-
+  renderChart(): void {
     const ctx = document.getElementById('taskChart') as HTMLCanvasElement;
+
+    if (this.chart) {
+      this.chart.destroy(); // Para evitar superposición de gráficos
+    }
 
     this.chart = new Chart(ctx, {
       type: 'doughnut',
       data: {
         labels: ['Completadas', 'Pendientes', 'Vencidas'],
         datasets: [{
-          data: [this.completadas , this.pendientes, this.vencidas],
+          data: [this.completadas, this.pendientes, this.vencidas],
           backgroundColor: ['#4caf50', '#ffc107', '#f44336']
         }]
       },

@@ -6,6 +6,6 @@ export interface Task {
   description: string;
   status: 'Completada' | 'Pendiente' | 'Vencida' |'En progreso';
   priority: 'Alta' | 'Media' | 'Baja';
-  createdAt: Date;
-  dueDate: Date;
+  createdAt: string;
+  dueDate: string;
 }
